@@ -1,2 +1,2 @@
-# api-noticias
+# apinoticias
 Projeto java - Projeto Cliente Servidor
