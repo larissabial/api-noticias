@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.ifes.apinoticias.PreferenciaNoticia;
+import com.ifes.apinoticias.enums.PreferenciaNoticia;
 import com.ifes.apinoticias.records.DadosPessoaDTO;
 
 import lombok.AllArgsConstructor;

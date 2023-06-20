@@ -20,8 +20,8 @@ public class PessoaController {
 
 	@PostMapping
 	@Transactional(rollbackFor = Exception.class)
-	public void cadastrar(@RequestBody DadosPessoaDTO dados) throws Exception {
-		repository.save(new Pessoa(dados));
+	public Pessoa cadastrar(@RequestBody DadosPessoaDTO dados) throws Exception {
+		 return repository.save(new Pessoa(dados));
 
 	};
 

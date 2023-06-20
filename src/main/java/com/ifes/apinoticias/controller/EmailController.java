@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,11 +27,10 @@ public class EmailController {
 
 	@GetMapping
 	@Transactional(rollbackFor = Exception.class)
-	public void dispararEmails() throws Exception {
-		List<Pessoa> pessoaList = new ArrayList<>();
+	public ResponseEntity<String> dispararEmails() throws Exception {
+		List<Pessoa> pessoaList;
 		pessoaList = repository.findAll();
-
-		System.out.println(pessoaList);
 		emailService.disparar(pessoaList);
+		return new ResponseEntity<>(HttpStatus.ACCEPTED);
 	}
 }
