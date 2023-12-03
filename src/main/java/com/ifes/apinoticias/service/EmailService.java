@@ -34,16 +34,20 @@ public class EmailService implements IEmailService {
 	@Override
 	public void disparar(List<Pessoa> pessoaList) throws Exception {
 
+
+		// preparando parametros para consumir api
+		///Todo - Coloquei para paramentros da consulta serem montador uma unica vez para otimizar o tempo.
+
+		Date dataHoraAtual = new Date();
+		String sysdate = new SimpleDateFormat("dd/MM/yyyy").format(dataHoraAtual);
+		String uri = "https://newsapi.org/v2/everything";
+		String paramsGerais = "sortBy=popularity&language=pt&pageSize=10&page=1";
+		String uriDiversos = uri + "?apiKey=" + apiKey + "&from=" + sysdate + "&" + paramsGerais + "&q=diversos";
+		String uriEducacao = uri + "?apiKey=" + apiKey + "&from=" + sysdate + "&" + paramsGerais + "&q=educacao";
+
 		for (Pessoa pessoa : pessoaList) {
-			// preparando parametros para consumir api
-			Date dataHoraAtual = new Date();
-			String sysdate = new SimpleDateFormat("dd/MM/yyyy").format(dataHoraAtual);
-			String uri = "https://newsapi.org/v2/everything";
-			String paramsGerais = "sortBy=popularity&language=pt&pageSize=10&page=1";
 
 			if (PreferenciaNoticia.DIVERSOS.equals(pessoa.getVldPreferencia())) {
-
-				String uriDiversos = uri + "?apiKey=" + apiKey + "&from=" + sysdate + "&" + paramsGerais + "&q=diversos";
 
 				HttpRequest request = HttpRequest.newBuilder().GET()//
 						.uri(URI.create(uriDiversos))//
@@ -59,8 +63,6 @@ public class EmailService implements IEmailService {
 			}
 
 			if (PreferenciaNoticia.EDUCACAO.equals(pessoa.getVldPreferencia())) {
-
-				String uriEducacao = uri + "?apiKey=" + apiKey + "&from=" + sysdate + "&" + paramsGerais + "&q=educacao";
 
 				HttpRequest request = HttpRequest.newBuilder()//
 						.GET().uri(URI.create(uriEducacao))//
